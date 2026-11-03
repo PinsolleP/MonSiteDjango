@@ -36,8 +36,15 @@ Tutoriel officiel Django 5.2
 
 2.2.1 Exercice d'administration
 
-1 - pour rajouter l'interface de la classe choice, voici les étapes
-    - Ajouter l'import Choice depuis models
-    - Ajouter cette ligne : admin.site.register(Choice)
-    - Contrôler grace a la commande : python manage.py runserver. puis accèder au site en ajoutant /admin 
+1 - pour rajouter l'interface de la classe choice, voici les étapes :
+    - Ajoutez l'import Choice depuis models
+    - Ajoutez cette ligne : admin.site.register(Choice)
+    - Contrôlez grace a la commande : python manage.py runserver. puis accèder au site en ajoutant /admin 
 
+2 - utilisez la commande python manage.py runserver pour accèder au site
+    - selectionnez question et ajouter manuellement vos questions
+    - pensez a enregistrer
+    - faites de même pour les choix des réponses
+
+3 - Pour visualiser tous les attributs de la classe , il faut sélectionner question ou choice pour les voirs.
+  -  
