@@ -31,3 +31,13 @@ GitHub / Hébergement du dépôt et suivi du projet
 Documentation officielle Django 5.2
 
 Tutoriel officiel Django 5.2
+
+2.2 Exercices sur les parties 1 et 2 
+
+2.2.1 Exercice d'administration
+
+1 - pour rajouter l'interface de la classe choice, voici les étapes
+    - Ajouter l'import Choice depuis models
+    - Ajouter cette ligne : admin.site.register(Choice)
+    - Contrôler grace a la commande : python manage.py runserver. puis accèder au site en ajoutant /admin 
+
