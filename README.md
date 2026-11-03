@@ -71,3 +71,17 @@ Pour cela nous devons créer deux classes dans le fichier admin.py :
 Ensuite nous devons enregistrer ces modèles dans l'interface d'administration:
     admin.site.register(Question, QuestionAdmin)
     admin.site.register(Choice, ChoiceAdmin)
+
+5 Pour ajouter un nouvel utilisateur :
+    - Dans la rubrique Authentication and Authorization, ouvre Users.
+    - Clique sur Add user.
+    - Renseigne un nom d'utilisateur et un mot de passe.
+    - Enregistre le nouvel utilisateur.
+
+Lorsque nous nous déconnectons on ne peut pas se reconnecter avec les infos de ce nouvel utilisateur
+
+6 Modifiez manuellement le nouvel utilisateur créé , donnez lui le "Statut équipe" et réinitialisez son mot de passe
+
+7 Mettre à jour l'utilisateur en décochant le statut "Actif"
+
+
