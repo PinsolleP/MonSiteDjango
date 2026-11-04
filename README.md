@@ -111,7 +111,7 @@ Lorsque nous nous déconnectons on ne peut pas se reconnecter avec les infos de 
 
 2.2.2.1 : python manage.py shell
 
-2.2.2.2.1 :
+2.2.2.1.2 :
 
 from polls.models import Question : importe toutes nos questions.
 
@@ -120,6 +120,83 @@ Question.objects.all() : liste toutes les questions.
 for question in Question.objects.all():
     print(question.id, question.question_text, question.pub_date)
 
-2.2.2.2.2 :
+2.2.2.2 :
 
 Question.objects.filter(pub_date__month=10)
+
+2.2.2.3 :
+
+>>> q = Question.objects.get(id=2) 
+>>> q.id, q.question_text, q.pub_date 
+>>> q.choice_set.all() 
+
+2.2.2.4 :
+
+>>> for q in Question.objects.all(): 
+...     q.id, q.question_text, q.pub_date 
+...     for c in q.choice_set.all(): 
+...         c.choice_text, c.votes 
+
+2.2.2.5 :
+
+>>> for q in Question.objects.all(): 
+...     q, q.choice_set.count() 
+
+2.2.2.6 :
+
+>>> for c in Choice.objects.all().order_by('votes'): 
+...     c.question.question_text, c.choice_text, c.votes 
+>>> for q in 
+Question.objects.all().order_by('choice__votes').values('question_
+text', 'choice__choice_text', 'choice__votes'): 
+...     q 
+>>> for c in 
+Choice.objects.all().order_by('votes').values('question__question_
+text', 'choice_text', 'votes'): 
+...     c 
+
+2.2.2.7 :
+
+Question.objects.all().order_by('-pub_date') 
+
+2.2.2.8 :
+
+>>> for q in Question.objects.all(): 
+...     for c in q.choice_set.all(): 
+...         if 'Non' in c.choice_text: 
+...             print(q, c.choice_text) 
+...             break 
+
+2.2.2.9
+
+>>> q = Question(question_text="Quelle est la couleur du cheval 
+blanc d'Henri IV ?", pub_date=timezone.now()) 
+>>> q.save() 
+>>> q.id  # pour vérifier que la question a bien été rajoutée dans 
+la base 
+
+2.2.2.10
+
+>>> q.choice_set.create(choice_text="Blanc", votes=0) 
+>>> q.choice_set.create(choice_text="Noir", votes=0) 
+>>> q.choice_set.create(choice_text="Gris clair", votes=0) 
+
+2.2.2.11
+
+>>> for q in Question.objects.all(): 
+...     if q.was_published_recently(): 
+...         q 
+ou avec une compréhension de liste : 
+>>> [q for q in Question.objects.all() if 
+q.was_published_recently()] 
+
+2.2.2.12
+
+>>> from django.contrib.auth.models import User 
+>>> User.objects.all() 
+
+2.2.3 Exercice d'écriture de méthodes du modèle
+
+
+
+
