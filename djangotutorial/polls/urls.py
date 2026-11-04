@@ -9,6 +9,8 @@ Ce module définit les routes accessibles dans l'application
 et associe chaque URL à une vue Django correspondante.
 """
 
+app_name = "polls"
+
 urlpatterns = [
     # ex: /polls/
     path("", views.index, name="index"),
