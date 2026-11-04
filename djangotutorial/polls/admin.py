@@ -5,15 +5,15 @@ from .models import Question, Choice
 
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('question_text', 'pub_date')
-    list_filter = ('pub_date',)
-    search_fields = ('question_text',)
-    ordering = ('question_text',)
+    list_filter = ('question_text', 'pub_date')
+    search_fields = ('question_text', 'pub_date')
+    ordering = ('question_text', 'pub_date')
 
 
 class ChoiceAdmin(admin.ModelAdmin):
     list_display = ('choice_text', 'votes', 'question')
-    list_filter = ('votes',)
-    search_fields = ('choice_text',)
+    list_filter = ('choice_text', 'votes', 'question')
+    search_fields = ('choice_text', 'votes', 'question')
     ordering = ('choice_text',)
 
 
