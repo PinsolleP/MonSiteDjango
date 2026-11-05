@@ -21,6 +21,16 @@ class DetailView(generic.DetailView):
     template_name = "polls/detail.html"
 
 
+class FrequencyView(generic.DetailView):
+    model = Question
+    template_name = "polls/frequency.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["frequency"] = self.object.get_choices()
+        return context
+
+
 class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
