@@ -195,8 +195,38 @@ q.was_published_recently()]
 >>> from django.contrib.auth.models import User 
 >>> User.objects.all() 
 
-2.2.3 Exercice d'écriture de méthodes du modèle
+3.2 q1
 
+<p>{{ question.pub_date }}</p>
+
+3.2 q2
+
+première étape : construire la classe AllQuestionView 
+
+    class AllQuestionsView(generic.ListView):
+    template_name = "polls/all.html"
+
+    def get_queryset(self):
+        """Return all the questions."""
+        return Question.objects.all()
+
+deuxième étape : Créer le fichier all.html
+
+<h1>Liste de tous les sondages</h1>
+
+<ul>
+{% for question in question_list %}
+    <li>{{ question.id }} --
+        <a href="{% url 'polls:detail' question.id %}">
+            {{ question.question_text }}
+        </a>
+    </li>
+{% endfor %}
+</ul>
+
+troisième étape : Rajouter le path de la page dans la liste des urlspattern
+
+path("all/", views.AllQuestionsView.as_view(), name="all"),
 
 
 
