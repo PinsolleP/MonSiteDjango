@@ -228,5 +228,111 @@ troisième étape : Rajouter le path de la page dans la liste des urlspattern
 
 path("all/", views.AllQuestionsView.as_view(), name="all"),
 
+3.2 q3
+
+création de la classe FrequencyView :
+
+class FrequencyView(generic.DetailView):
+    model = Question
+    template_name = "polls/frequency.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["frequency"] = self.object.get_choices()
+        return context
+
+Mise à jour de la fonction get_choices dans models : 
+
+    def get_choices(self):
+        choices = self.choice_set.all()
+        resultat = self.choice_set.aggregate(total=Sum('votes'))
+        total = resultat['total'] or 0
+        if total == 0:
+            return [(c.choice_text, c.votes, 0) for c in choices]
+        else:
+            return [(c.choice_text, c.votes, (c.votes / total) * 100) for c in choices]
+
+Création du fichier frequency.html : 
+
+<h1>Résultats et fréquences</h1>
+
+<ul>
+{% for choice in frequency %}
+    <li>{{ choice.0 }} --
+        {{ choice.1 }} votes --
+        {{ choice.2|floatformat:2 }} %
+    </li>
+{% endfor %}
+</ul>
+
+Ajout du path frequency dans urls.py : 
+
+path("<int:pk>/frequency/", views.FrequencyView.as_view(), name="frequency"),
+
+Mise à jour du lien vers la page frequency dans le fichier all.html :
+
+<a href="{% url 'polls:frequency' question.id %}">
+            {{ question.question_text }}
+        </a>
+
+Mise en forme du fichier index pour naviguer entre les différentes pages : 
+
+<h1>Liste des derniers sondages</h1>
+
+<p>
+    <a href="{% url 'polls:all'%}">Voir tous les sondages</a>
+<p>
+    {% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li>
+            <a href="{% url 'polls:frequency' question.id %}">
+                {{ question.question_text }}
+            </a>
+            <p>{{ question.pub_date }}</p>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+3.2.4
+
+création de la classe views :
+
+class StatisticsView(generic.TemplateView):
+    template_name = "polls/statistics.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["total_questions"] = Question.objects.count()
+        context["total_choices"] = Choice.objects.count()
+        resultat = Choice.objects.aggregate(total=Sum("votes"))
+        total_votes = resultat["total"] or 0
+        context["total_votes"] = total_votes
+        if context["total_questions"] > 0:
+            context["average_votes"] = context["total_votes"] / context["total_questions"]
+        else:
+            context["average_votes"] = 0
+        return context
+
+création du fichier html statistic :
+
+<h1>Statistiques</h1>
+
+<ul>
+    <li> Nombre total de sondages : {{ total_questions }}</li>
+    <li> Nombre total de choix : {{ total_choices }}</li>
+    <li> Nombre total de votes : {{ total_votes }}</li>
+    <li> Moyenne de votes par sondage : {{ average_votes|floatformat:2 }}</li>
+
+</ul>
+
+Ajout du chemin path dans urls.py : 
+
+path("statistics/", views.StatisticsView.as_view(), name="statistics"),
+
+
 
 
