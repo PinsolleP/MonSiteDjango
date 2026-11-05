@@ -1,0 +1,10 @@
+<h1>Résultats et fréquences</h1>
+
+<ul>
+{% for choice in frequency %}
+    <li>{{ choice.0 }} --
+        {{ choice.1 }} votes --
+        {{ choice.2|floatformat:2 }} %
+    </li>
+{% endfor %}
+</ul>
