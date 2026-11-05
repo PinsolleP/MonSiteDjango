@@ -19,10 +19,11 @@ Inclure une autre configuration d'URL
     1. Importer la fonction include() : from django.urls import include, path
     2. Ajouter une URL à urlpatterns : path('blog/', include('blog.urls'))
 """
+from debug_toolbar.toolbar import debug_toolbar_urls
 from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
     path("polls/", include("polls.urls")),
     path("admin/", admin.site.urls),
-]
+] + debug_toolbar_urls()
