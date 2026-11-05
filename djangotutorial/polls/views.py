@@ -1,3 +1,4 @@
+from django.db.models.aggregates import Sum
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.db.models import F
@@ -28,6 +29,23 @@ class FrequencyView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["frequency"] = self.object.get_choices()
+        return context
+
+
+class StatisticsView(generic.TemplateView):
+    template_name = "polls/statistics.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["total_questions"] = Question.objects.count()
+        context["total_choices"] = Choice.objects.count()
+        resultat = Choice.objects.aggregate(total=Sum("votes"))
+        total_votes = resultat["total"] or 0
+        context["total_votes"] = total_votes
+        if context["total_questions"] > 0:
+            context["average_votes"] = context["total_votes"] / context["total_questions"]
+        else:
+            context["average_votes"] = 0
         return context
 
 
