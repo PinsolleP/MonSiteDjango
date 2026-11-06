@@ -93,7 +93,7 @@ def create_question(request):
 
         if form.is_valid():
             return redirect("polls:index")
-        else:
-            form = QuestionForm()
+    else:
+        form = QuestionForm()
 
-        return render(request, "polls/name.html", {"form": form})
+    return render(request, "polls/name.html", {"form": form})
