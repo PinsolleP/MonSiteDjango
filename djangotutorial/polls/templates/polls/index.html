@@ -1,17 +1,23 @@
+{% extends 'base.html' %}
 {% load static %}
 
+{% block css %}
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+{% endblock %}
 
-<h1>Liste des derniers sondages</h1>
+{% block title %}
+Liste des derniers sondages
+{% endblock %}
 
+{% block main %}
 <p>
     <a href="{% url 'polls:all'%}">Voir tous les sondages</a>
-<p>
+</p>
     {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
         <li>
-            <a href="{% url 'polls:frequency' question.id %}">
+            <a href="{% url 'polls:detail' question.id %}">
                 {{ question.question_text }}
             </a>
             <p>{{ question.pub_date }}</p>
@@ -21,3 +27,5 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+    <a href="{% url 'polls:add'%}">Créer un sondage</a>
+{% endblock %}
