@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Ajouter un sondage
+{% endblock %}
+
+{% block main %}
+
+<h1>Ajouter un sondage</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Créer le sondage</button>
+</form>
+
+{% endblock %}
