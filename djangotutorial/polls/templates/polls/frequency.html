@@ -1,5 +1,10 @@
-<h1>Résultats et fréquences</h1>
+{% extends 'base.html' %}
 
+{% block title %}
+<h1>Résultats et fréquences</h1>
+{% endblock %}
+
+{% block main %}
 <ul>
 {% for choice in frequency %}
     <li>{{ choice.0 }} --
@@ -8,3 +13,4 @@
     </li>
 {% endfor %}
 </ul>
+{% endblock %}
