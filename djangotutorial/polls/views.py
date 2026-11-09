@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import F
 from django.urls import reverse
+from django.utils import timezone
 from django.views import generic
 
 from .forms import QuestionForm
@@ -92,6 +93,22 @@ def create_question(request):
         form = QuestionForm(request.POST)
 
         if form.is_valid():
+            question_text = form.cleaned_data["question"]
+
+            question = Question.objects.create(question_text=question_text, pub_date=timezone.now())
+
+            choices = [
+                form.cleaned_data["choice1"],
+                form.cleaned_data["choice2"],
+                form.cleaned_data["choice3"],
+                form.cleaned_data["choice4"],
+                form.cleaned_data["choice5"],
+            ]
+            for choice in choices:
+                if choice:
+                    Choice.objects.create(question=question,
+                                          choice_text=choice
+                                          )
             return redirect("polls:index")
     else:
         form = QuestionForm()
