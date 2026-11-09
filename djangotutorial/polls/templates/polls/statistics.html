@@ -1,5 +1,10 @@
-<h1>Statistiques</h1>
+{% extends 'base.html' %}
 
+{% block title %}
+<h1>Statistiques</h1>
+{% endblock %}
+
+{% block main %}
 <ul>
     <li> Nombre total de sondages : {{ total_questions }}</li>
     <li> Nombre total de choix : {{ total_choices }}</li>
@@ -7,3 +12,4 @@
     <li> Moyenne de votes par sondage : {{ average_votes|floatformat:2 }}</li>
 
 </ul>
+{% endblock %}
