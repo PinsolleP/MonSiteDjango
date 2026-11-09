@@ -1,5 +1,10 @@
-<h1>Liste de tous les sondages</h1>
+{% extends 'base.html' %}
 
+{% block title %}
+<h1>Liste de tous les sondages</h1>
+{% endblock %}
+
+{% block main %}
 <ul>
 {% for question in question_list %}
     <li>{{ question.id }} --
@@ -9,3 +14,4 @@
     </li>
 {% endfor %}
 </ul>
+{% endblock %}
