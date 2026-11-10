@@ -88,6 +88,8 @@ def vote(request, question_id):
 
 
 def create_question(request):
+    if not request.user.is_authenticated:
+        return redirect("polls:index")
 
     if request.method == "POST":
         form = QuestionForm(request.POST)
@@ -108,8 +110,8 @@ def create_question(request):
             for choice in choices:
                 if choice:
                     obj_choice = Choice.objects.create(question=question,
-                                          choice_text=choice
-                                            )
+                                                       choice_text=choice
+                                                       )
                     obj_choice.save()
             return redirect("polls:index")
     else:
