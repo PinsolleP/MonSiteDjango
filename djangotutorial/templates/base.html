@@ -10,6 +10,18 @@
 <body>
 
     <header>
+        {% if user.is_authenticated %}
+            <p>Bonjour {{user.username}}</p>
+
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Se déconnecter</button>
+            </form>
+
+        {% else %}
+            <a href="{% url 'login' %}?next={% url 'polls:index' %}">Connexion</a>
+        {% endif %}
+
         {% block header %}
         {% endblock %}
     </header>
