@@ -96,6 +96,7 @@ def create_question(request):
             question_text = form.cleaned_data["question"]
 
             question = Question.objects.create(question_text=question_text, pub_date=timezone.now())
+            question.save()
 
             choices = [
                 form.cleaned_data["choice1"],
@@ -106,9 +107,10 @@ def create_question(request):
             ]
             for choice in choices:
                 if choice:
-                    Choice.objects.create(question=question,
+                    obj_choice = Choice.objects.create(question=question,
                                           choice_text=choice
-                                          )
+                                            )
+                    obj_choice.save()
             return redirect("polls:index")
     else:
         form = QuestionForm()
