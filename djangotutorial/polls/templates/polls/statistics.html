@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<h1>Statistiques</h1>
+Statistiques
 {% endblock %}
 
 {% block main %}
+<h1>Statistiques</h1>
 <ul>
     <li> Nombre total de sondages : {{ total_questions }}</li>
     <li> Nombre total de choix : {{ total_choices }}</li>
@@ -12,4 +13,7 @@
     <li> Moyenne de votes par sondage : {{ average_votes|floatformat:2 }}</li>
 
 </ul>
+<p>
+    <a href="{% url 'polls:index' %}">Retour à l'accueil</a>
+</p>
 {% endblock %}
