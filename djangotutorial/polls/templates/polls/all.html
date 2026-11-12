@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<h1>Liste de tous les sondages</h1>
+Tous les sondages
 {% endblock %}
 
 {% block main %}
+<h1>Liste de tous les sondages</h1>
+<p>
+    <a href="{% url 'polls:index' %}">Retour à l'accueil</a>
+</p>
 <ul>
 {% for question in question_list %}
     <li>{{ question.id }} --
@@ -12,6 +16,8 @@
             {{ question.question_text }}
         </a>
     </li>
+    {% empty %}
+        <li>Aucun sondage disponible.</li>
 {% endfor %}
 </ul>
 {% endblock %}
