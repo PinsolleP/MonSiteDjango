@@ -31,6 +31,8 @@ class FrequencyView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["frequency"] = self.object.get_choices()
+        context["labels"] = [c[0] for c in context["frequency"]]
+        context["percentages"] = [round(c[2], 2) for c in context["frequency"]]
         return context
 
 
@@ -84,7 +86,7 @@ def vote(request, question_id):
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+        return HttpResponseRedirect(reverse("polls:frequency", args=(question.id,)))
 
 
 def create_question(request):
