@@ -4,6 +4,6 @@ li a {
 
 body {
     background: white url("images/background.png") no-repeat center top;
-    background-size: 100vw 100vh; /* Garde la taille originale de l'image */
+    background-size: 100vw 100vh;
     margin: 0;
 }
