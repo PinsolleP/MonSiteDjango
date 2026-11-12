@@ -13,6 +13,10 @@
         {% if user.is_authenticated %}
             <p>Bonjour {{user.username}}</p>
 
+        {% if user.is_staff %}
+            <a href="{% url 'admin:index' %}">Administration</a>
+        {% endif %}
+
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
                 <button type="submit">Se déconnecter</button>
