@@ -6,16 +6,43 @@ Résultats et fréquences
 
 {% block main %}
 <h1>Résultats et fréquences</h1>
-<ul>
-{% for choice in frequency %}
-    <li>{{ choice.0 }} --
-        {{ choice.1 }} votes --
-        {{ choice.2|floatformat:2 }} %
-    </li>
-    {% empty %}
-    <li>Aucun résultat disponible.</li>
-{% endfor %}
-</ul>
+<h2>{{ question.question_text }}</h2>
+<div style="max-width: 450px; height: 350px; margin: auto;">
+    <canvas id="frequencyChart"></canvas>
+</div>
+{{ labels|json_script:"labels-data" }}
+{{ percentages|json_script:"percentages-data" }}
+
+<script>
+    const labels = JSON.parse(
+        document.getElementById('labels-data').textContent
+    );
+
+    const percentages = JSON.parse(
+        document.getElementById('percentages-data').textContent
+    );
+
+    const ctx = document.getElementById('frequencyChart');
+
+new Chart(ctx, {
+    type: 'pie',
+
+    data: {
+        labels: labels,
+
+        datasets: [{
+            label: 'Pourcentage des votes',
+            data: percentages,
+            borderWidth: 1
+        }]
+    },
+
+    options: {
+        responsive: true
+    }
+});
+</script>
+
 <p>
     <a href="{% url 'polls:index' %}">Retour à l'accueil</a>
 </p>
