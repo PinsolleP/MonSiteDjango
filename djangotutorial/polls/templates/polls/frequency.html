@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<h1>Résultats et fréquences</h1>
+Résultats et fréquences
 {% endblock %}
 
 {% block main %}
+<h1>Résultats et fréquences</h1>
 <ul>
 {% for choice in frequency %}
     <li>{{ choice.0 }} --
         {{ choice.1 }} votes --
         {{ choice.2|floatformat:2 }} %
     </li>
+    {% empty %}
+    <li>Aucun résultat disponible.</li>
 {% endfor %}
 </ul>
+<p>
+    <a href="{% url 'polls:index' %}">Retour à l'accueil</a>
+</p>
 {% endblock %}

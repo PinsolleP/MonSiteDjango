@@ -7,16 +7,26 @@
 
 
 {% block main %}
+<h1>{{ question.question_text }}</h1>
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
 <fieldset>
-    <legend><h1>{{ question.question_text }}</h1></legend>
+    <legend>Choisissez votre réponse</legend>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <input type="radio"
+               name="choice"
+               id="choice{{ forloop.counter }}"
+               value="{{ choice.id }}"
+               {% if forloop.first %}required{% endif %}>
         <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% empty %}
+        <p>Aucune réponse disponible pour ce sondage.</p>
     {% endfor %}
 </fieldset>
-<input type="submit" value="Vote">
+    <button type="submit">Valider mon vote</button>
 </form>
+<p>
+    <a href="{% url 'polls:index' %}">Retour à l'accueil</a>
+</p>
 {% endblock %}
