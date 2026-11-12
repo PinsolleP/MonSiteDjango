@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css %}
-<link rel="stylesheet" href="{% static 'polls/style.css' %}">
-{% endblock %}
 
 {% block title %}
 Liste des derniers sondages
@@ -25,7 +22,7 @@ Liste des derniers sondages
     {% endfor %}
     </ul>
 {% else %}
-    <p>No polls are available.</p>
+    <p>Aucun sondage n'est disponible pour le moment.</p>
 {% endif %}
     <a href="{% url 'polls:add'%}">Créer un sondage</a>
 {% endblock %}
