@@ -10,8 +10,11 @@ Ajouter un sondage
 
 <form method="post">
     {% csrf_token %}
+    {{ form.non_field_errors }}
     {{ form.as_p }}
     <button type="submit">Créer le sondage</button>
 </form>
-
+<p>
+    <a href="{% url 'polls:index' %}">Retour à l'accueil</a>
+</p>
 {% endblock %}
